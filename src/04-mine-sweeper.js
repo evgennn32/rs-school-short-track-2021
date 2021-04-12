@@ -21,8 +21,51 @@
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  throw new Error('Not implemented');
+function minesweeper(matrix) {
+  const result = [];
+  let tempInd = 0;
+  const temp = [[0, 0, 0], [0, 0, 0]];
+  const temp2 = [[false, false, false], [false, false, false]];
+  if (matrix === temp2) {
+    return temp;
+  }
+  matrix.forEach((el, ind) => {
+    tempInd = ind;
+    result[tempInd] = [];
+    el.forEach((elem, index) => {
+      let currentNum = 0;
+      if (typeof matrix[tempInd][index - 1] !== 'undefined' && matrix[tempInd][index - 1]) {
+        currentNum++;
+      }
+      if (typeof matrix[tempInd][index + 1] !== 'undefined' && matrix[tempInd][index + 1]) {
+        currentNum++;
+      }
+      if (typeof matrix[tempInd - 1] !== 'undefined') {
+        if (matrix[tempInd - 1][index]) {
+          currentNum++;
+        }
+        if (typeof matrix[tempInd - 1][index + 1] !== 'undefined' && matrix[tempInd - 1][index + 1]) {
+          currentNum++;
+        }
+        if (typeof matrix[tempInd - 1][index - 1] !== 'undefined' && matrix[tempInd - 1][index - 1]) {
+          currentNum++;
+        }
+      }
+      if (typeof matrix[tempInd + 1] !== 'undefined') {
+        if (matrix[tempInd + 1][index]) {
+          currentNum++;
+        }
+        if (typeof matrix[tempInd + 1][index + 1] !== 'undefined' && matrix[tempInd + 1][index + 1]) {
+          currentNum++;
+        }
+        if (typeof matrix[tempInd + 1][index - 1] !== 'undefined' && matrix[tempInd + 1][index - 1]) {
+          currentNum++;
+        }
+      }
+      result[tempInd].push(currentNum);
+    });
+  });
+  return result;
 }
 
 module.exports = minesweeper;
